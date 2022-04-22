@@ -1,4 +1,10 @@
 package com.example.brewery
 
-class BreweryApp {
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class BreweryApp : Application()
+{
+
 }
