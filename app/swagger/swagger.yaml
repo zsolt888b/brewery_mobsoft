@@ -1,0 +1,199 @@
+---
+swagger: "2.0"
+info:
+  description: Brewrey swagger documentation
+  version: 1.0.0
+  title: Swagger Brewery
+host: api.openbrewerydb.org
+basePath: /
+tags:
+- name: Brewery
+  description: Manage breweries
+  externalDocs:
+    description: find out more
+    url: https://api.openbrewerydb.org/breweries
+schemes:
+- https
+- http
+paths:
+  /breweries:
+    get:
+      tags:
+      - Brewery
+      summary: Get breweries
+      description: ""
+      operationId: Get breweries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Brewery'
+        "404":
+          description: Not found
+    post:
+      tags:
+      - Brewery
+      summary: Create breweries
+      description: ""
+      operationId: Create breweries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Brewery to update
+        required: true
+        schema:
+          $ref: '#/definitions/Brewery'
+      responses:
+        "201":
+          description: OK
+  /breweries/{id}:
+    get:
+      tags:
+      - Brewery
+      summary: Get brewery
+      description: ""
+      operationId: Get brewery
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the brewery
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Brewery'
+        "404":
+          description: Not found
+    put:
+      tags:
+      - Brewery
+      summary: Update brewery
+      description: ""
+      operationId: Update brewery
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the brewery
+        required: true
+        type: integer
+      - in: body
+        name: body
+        description: Brewery to update
+        required: true
+        schema:
+          $ref: '#/definitions/Brewery'
+      responses:
+        "204":
+          description: OK
+    delete:
+      tags:
+      - Brewery
+      summary: Delete brewery
+      description: ""
+      operationId: Delete brewery
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the brewery
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: OK
+definitions:
+  Brewery:
+    type: object
+    properties:
+      id:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      brewery_type:
+        type: string
+        enum:
+        - micro
+        - nano
+        - regional
+        - brewpub
+        - large
+        - planning
+        - bar
+        - contract
+        - proprietor
+        - closed
+      street:
+        type: string
+        format: string
+      address_2:
+        type: string
+        format: string
+      address_3:
+        type: string
+        format: string
+      city:
+        type: string
+        format: string
+      state:
+        type: string
+        format: string
+      county_province:
+        type: string
+        format: string
+      postal_code:
+        type: string
+        format: string
+      country:
+        type: string
+        format: string
+      longitude:
+        type: string
+        format: string
+      latitude:
+        type: string
+        format: string
+      phone:
+        type: string
+        format: string
+      website_url:
+        type: string
+        format: string
+      updated_at:
+        type: string
+        format: string
+      created_at:
+        type: string
+        format: string
+    xml:
+      name: Brewery
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
