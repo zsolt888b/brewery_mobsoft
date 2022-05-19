@@ -11,10 +11,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.Provides
 import android.content.Context
 import com.example.brewery.Network.BreweryService
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
@@ -31,6 +32,7 @@ class NetworkModule {
                 NetworkConfig.SERVICE_ENDPOINT
             )
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()
     }
 
