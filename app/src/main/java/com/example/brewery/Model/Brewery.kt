@@ -5,23 +5,23 @@ import androidx.room.Entity
 
 @Entity
 data class Brewery(
-    val brewery_type: String? = null,
-    val street: String? = null,
-    val address_2: String? = null,
-    val address_3: String? = null,
-    val city: String? = null,
-    val state: String? = null,
-    val county_province: String? = null,
-    val postal_code: String? = null,
-    val country: String? = null,
-    val longitude: String? = null,
-    val latitude: String? = null,
-    val content: String? = null,
-    val phone: String? = null,
-    val website_url: String? = null,
-    val updated_at: String? = null,
-    val created_at: String? = null,
+    var brewery_type: String? = null,
+    var street: String? = null,
+    var address_2: String? = null,
+    var address_3: String? = null,
+    var city: String? = null,
+    var state: String? = null,
+    var county_province: String? = null,
+    var postal_code: String? = null,
+    var country: String? = null,
+    var longitude: String? = null,
+    var latitude: String? = null,
+    var content: String? = null,
+    var phone: String? = null,
+    var website_url: String? = null,
+    var updated_at: String? = null,
+    var created_at: String? = null,
 
     @PrimaryKey(autoGenerate = false)
-    val name: String = ""
+    var name: String = ""
 ) {}

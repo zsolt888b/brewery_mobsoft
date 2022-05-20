@@ -37,6 +37,16 @@ fun BreweryItem(modifier: Modifier = Modifier,
                     textAlign = TextAlign.Left,
                 )
             }
+            Row {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp),
+                    text = brewery?.country ?: "",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.Black,
+                    textAlign = TextAlign.Left,
+                )
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ import com.google.accompanist.insets.statusBarsPadding
 fun BreweryList(
     modifier: Modifier = Modifier,
     breweries: List<Brewery>,
-    onClick: (brewery: Brewery) -> Unit,
+    onEdit: (brewery: Brewery) -> Unit,
     onDelete: (brewery: Brewery) -> Unit,
     onNameClicked: (brewery: Brewery) -> Unit,
 ){
@@ -60,7 +60,7 @@ fun BreweryList(
                             )
                         }
                         Button(
-                            onClick = { onClick(brewery) },
+                            onClick = { onEdit(brewery) },
                             Modifier.align(Alignment.End)
                         )
                         {

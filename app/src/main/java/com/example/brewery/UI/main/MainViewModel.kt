@@ -27,6 +27,9 @@ class MainViewModel @Inject constructor(
     private val _showAddButton: MutableState<Boolean> = mutableStateOf(true)
     val showAddButton: State<Boolean> get() = _showAddButton
 
+    private val _showSaveButton: MutableState<Boolean> = mutableStateOf(false)
+    val showSaveButton: State<Boolean> get() = _showSaveButton
+
     private val _selectedTab: MutableState<Int> = mutableStateOf(0)
     val selectedTab: State<Int> get() = _selectedTab
 
@@ -48,10 +51,9 @@ class MainViewModel @Inject constructor(
         _title.value = brewery.name;
         _showBackButton.value = true;
         _showAddButton.value = false;
-    }
-
-    fun add(brewery: Brewery){
-        mainRepository.add(brewery);
+        if(tab == 2){
+            _showSaveButton.value = true;
+        }
     }
 
     fun delete(brewery: Brewery){
@@ -63,6 +65,27 @@ class MainViewModel @Inject constructor(
         _title.value = "Breweries";
         _showBackButton.value = false;
         _showAddButton.value = true;
+        _showSaveButton.value = false;
+        _selectedBrewery.value = Brewery();
+    }
+
+    fun addClicked(tab: Int){
+        _selectedTab.value = tab;
+        _title.value = "Add new brewery";
+        _selectedBrewery.value = Brewery();
+        _showBackButton.value = true;
+        _showAddButton.value = false;
+        _showSaveButton.value = true;
+    }
+
+    fun saveClicked(tab: Int){
+        mainRepository.add(_selectedBrewery.value);
+        _selectedBrewery.value = Brewery();
+        _title.value = "Breweries";
+        _showBackButton.value = false;
+        _showAddButton.value = true;
+        _showSaveButton.value = false;
+        _selectedTab.value = tab;
     }
 
     fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
