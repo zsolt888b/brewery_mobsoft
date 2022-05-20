@@ -66,7 +66,6 @@ class MainViewModel @Inject constructor(
         _showBackButton.value = false;
         _showAddButton.value = true;
         _showSaveButton.value = false;
-        _selectedBrewery.value = Brewery();
     }
 
     fun addClicked(tab: Int){
@@ -80,7 +79,6 @@ class MainViewModel @Inject constructor(
 
     fun saveClicked(tab: Int){
         mainRepository.add(_selectedBrewery.value);
-        _selectedBrewery.value = Brewery();
         _title.value = "Breweries";
         _showBackButton.value = false;
         _showAddButton.value = true;

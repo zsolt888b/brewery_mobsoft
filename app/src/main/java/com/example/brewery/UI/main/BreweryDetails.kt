@@ -1,5 +1,6 @@
 package com.example.brewery.UI.main
 
+import android.media.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -25,7 +26,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
             .padding(4.dp),
         elevation = 4.dp
     ) {
-        Column(horizontalAlignment = Alignment.Start){
+        Column(horizontalAlignment = Alignment.CenterHorizontally){
             Row {
                 Text(
                     modifier = Modifier
@@ -38,7 +39,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.city ?: "",
+                    text = brewery?.city ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
@@ -56,7 +57,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.country ?: "",
+                    text = brewery?.country ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
@@ -74,7 +75,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.brewery_type ?: "",
+                    text = brewery?.brewery_type ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
@@ -93,7 +94,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.street ?: "",
+                    text = brewery?.street ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
@@ -112,7 +113,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.state ?: "",
+                    text = brewery?.state ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
@@ -131,7 +132,7 @@ fun BreweryDetails (modifier: Modifier = Modifier,
                 Text(
                     modifier = Modifier
                         .padding(8.dp),
-                    text = brewery?.postal_code ?: "",
+                    text = brewery?.postal_code ?: "<unavailable>",
                     style = MaterialTheme.typography.h6,
                     color = Color.Black,
                     textAlign = TextAlign.Right,
