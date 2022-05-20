@@ -15,6 +15,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     mainRepository: MainRepository
 ): ViewModel(){
+    @Inject lateinit var mainRepository: MainRepository;
+
     private val _isLoading: MutableState<Boolean> = mutableStateOf(false)
     val isLoading: State<Boolean> get() = _isLoading
 
@@ -29,6 +31,10 @@ class MainViewModel @Inject constructor(
 
     fun selectTab(tab: Int) {
         _selectedTab.value = tab
+    }
+
+    fun add(brewery: Brewery){
+        mainRepository.add(brewery);
     }
 
     fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
