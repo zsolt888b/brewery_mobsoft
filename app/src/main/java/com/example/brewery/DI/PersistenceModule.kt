@@ -14,10 +14,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class PersistenceModule {
+object PersistenceModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(application: BreweryApp): BreweryDatabase {
+    fun provideAppDatabase(application: Application): BreweryDatabase {
         return Room
             .databaseBuilder(
                 application,

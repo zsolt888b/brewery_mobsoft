@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class RepositoryModule {
+object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideRepository(
