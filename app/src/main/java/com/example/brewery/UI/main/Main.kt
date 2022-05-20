@@ -35,7 +35,7 @@ import javax.inject.Singleton
 fun Main(viewModel: MainViewModel) {
     val navController = rememberNavController()
     val isLoading: Boolean by viewModel.isLoading
-    val selectedTab = MainTab.getTabFromResource(viewModel.selectedTab.value)
+    val selectedTab = Tabs.getTabFromResource(viewModel.selectedTab.value)
 
     val breweries by viewModel.breweryList.collectAsState(initial = listOf())
 
@@ -60,11 +60,11 @@ fun Main(viewModel: MainViewModel) {
                         val modifier = Modifier.padding(innerPadding)
                         Crossfade(selectedTab) { destination ->
                             when (destination) {
-                                MainTab.MAIN -> BreweryList(modifier, breweries ?: listOf(), {brewery -> viewModel.selectBrewery(2, brewery)}
+                                Tabs.MAIN -> BreweryList(modifier, breweries ?: listOf(), {brewery -> viewModel.selectBrewery(2, brewery)}
                                 , {brewery -> viewModel.delete(brewery)},
                                     {brewery -> viewModel.selectBrewery(1, brewery)})
-                                MainTab.DETAILS -> BreweryDetails(modifier,viewModel.selectedBrewery.value)
-                                MainTab.ADDOREDIT -> BreweryAddOrEdit(modifier, viewModel.selectedBrewery.value)
+                                Tabs.DETAILS -> BreweryDetails(modifier,viewModel.selectedBrewery.value)
+                                Tabs.ADDOREDIT -> BreweryAddOrEdit(modifier, viewModel.selectedBrewery.value)
                             }
                         }
                     }
@@ -179,14 +179,14 @@ private fun MainAppBar(name : String, showAddButoon : Boolean,
 }
 
 
-enum class MainTab(
+enum class Tabs(
     val title: String,
 ) {
     MAIN("Main"), DETAILS("Details"), ADDOREDIT("AddOrEdit");
 
     companion object {
-        fun getTabFromResource(tabNum: Int): MainTab {
-            return when (tabNum) {
+        fun getTabFromResource(tab: Int): Tabs {
+            return when (tab) {
                 0 -> MAIN
                 1 -> DETAILS
                 2 -> ADDOREDIT
