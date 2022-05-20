@@ -32,4 +32,10 @@ class MainRepository @Inject constructor(
             breweryDao.insertBrewery(brewery)
         }
     }
+
+    fun delete(brewery: Brewery){
+        GlobalScope.launch{
+            breweryDao.deleteBrewery(brewery)
+        }
+    }
 }

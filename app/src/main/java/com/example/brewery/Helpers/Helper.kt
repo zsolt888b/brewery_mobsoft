@@ -6,9 +6,8 @@ import androidx.compose.ui.draw.alpha
 
 @Stable
 fun Modifier.visible(visibility: Boolean): Modifier {
-    return if (visibility) {
-        this.then(alpha(1f))
-    } else {
-        this.then(alpha(0f))
+    if (visibility) {
+        return this.then(alpha(1f))
     }
+    return this.then(alpha(0f))
 }

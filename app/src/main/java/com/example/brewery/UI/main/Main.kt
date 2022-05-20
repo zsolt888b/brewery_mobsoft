@@ -1,10 +1,16 @@
 package com.example.brewery.UI.main
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -31,8 +38,8 @@ import javax.inject.Singleton
 fun Main(viewModel: MainViewModel) {
     val navController = rememberNavController()
     val isLoading: Boolean by viewModel.isLoading
+    val showBackButton: Boolean by viewModel.showBackButton
     val selectedTab = MainTab.getTabFromResource(viewModel.selectedTab.value)
-    val tabs = MainTab.values()
 
     val breweries by viewModel.breweryList.collectAsState(initial = listOf(Brewery(name = "Hello my friends")))
 
@@ -43,7 +50,11 @@ fun Main(viewModel: MainViewModel) {
                     val (body, progress) = createRefs()
                     Scaffold(
                         backgroundColor = Color.White,
-                        topBar = { MainAppBar() },
+                        topBar = { MainAppBar(viewModel.title.value,
+                            viewModel.showAddButton.value,
+                            viewModel.showBackButton.value,
+                            { brewery -> viewModel.backClicked(0)})
+                            },
                         modifier = Modifier.constrainAs(body) {
                             top.linkTo(parent.top)
                         }
@@ -51,7 +62,10 @@ fun Main(viewModel: MainViewModel) {
                         val modifier = Modifier.padding(innerPadding)
                         Crossfade(selectedTab) { destination ->
                             when (destination) {
-                                MainTab.MAIN -> BreweryList(modifier, breweries ?: listOf())
+                                MainTab.MAIN -> BreweryList(modifier, breweries ?: listOf(), {brewery -> viewModel.add(brewery)}
+                                , {brewery -> viewModel.delete(brewery)},
+                                    {brewery -> viewModel.selectBrewery(1, brewery)})
+                                MainTab.DETAILS -> BreweryDetails(modifier,viewModel.selectedBrewery.value)
                             }
                         }
                     }
@@ -71,36 +85,75 @@ fun Main(viewModel: MainViewModel) {
     }
 }
 
-@Preview
 @Composable
-private fun MainAppBar() {
-    TopAppBar(
-        elevation = 6.dp,
-        backgroundColor = MaterialTheme.colors.primarySurface,
-        modifier = Modifier.height(58.dp)
-    ) {
-        Text(
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterVertically),
-            text = "Breweries",
-            color = Color.White,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+private fun MainAppBar(name : String, showAddButoon : Boolean,
+                       showBackButton : Boolean,
+                       onBackClicked: (any : Any?) -> Unit) {
+    if(showAddButoon){
+        TopAppBar(
+            elevation = 6.dp,
+            backgroundColor = MaterialTheme.colors.primarySurface,
+            modifier = Modifier.height(58.dp),
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically),
+                text = name,
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Button(
+                onClick = {  })
+            {
+                Icon(
+                    Icons.Filled.Add,
+                    contentDescription = "Add",
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+            }
+        }
     }
+    if(showBackButton){
+        TopAppBar(
+            elevation = 6.dp,
+            backgroundColor = MaterialTheme.colors.primarySurface,
+            modifier = Modifier.height(58.dp),
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically),
+                text = name,
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Button(
+                onClick = { onBackClicked(null) })
+            {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier.size(ButtonDefaults.IconSize))
+            }
+        }
+    }
+
 }
 
 
 enum class MainTab(
     val title: String,
 ) {
-    MAIN("Main");
+    MAIN("Main"), DETAILS("Details");
 
     companion object {
         fun getTabFromResource(tabNum: Int): MainTab {
             return when (tabNum) {
                 0 -> MAIN
+                1 -> DETAILS
                 else -> MAIN
             }
         }
