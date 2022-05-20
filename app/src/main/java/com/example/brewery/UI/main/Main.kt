@@ -123,6 +123,14 @@ private fun MainAppBar(name : String, showAddButoon : Boolean,
             backgroundColor = MaterialTheme.colors.primarySurface,
             modifier = Modifier.height(58.dp),
         ) {
+            Button(
+                onClick = { onBackClicked(null) })
+            {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier.size(ButtonDefaults.IconSize))
+            }
             Text(
                 modifier = Modifier
                     .padding(8.dp)
@@ -132,14 +140,6 @@ private fun MainAppBar(name : String, showAddButoon : Boolean,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
-            Button(
-                onClick = { onBackClicked(null) })
-            {
-                Icon(
-                    Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    modifier = Modifier.size(ButtonDefaults.IconSize))
-            }
         }
     }
     if(showSaveButton && showBackButton){
@@ -148,6 +148,14 @@ private fun MainAppBar(name : String, showAddButoon : Boolean,
             backgroundColor = MaterialTheme.colors.primarySurface,
             modifier = Modifier.height(58.dp),
         ) {
+            Button(
+                onClick = { onBackClicked(null) })
+            {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier.size(ButtonDefaults.IconSize))
+            }
             Text(
                 modifier = Modifier
                     .padding(8.dp)
@@ -157,14 +165,6 @@ private fun MainAppBar(name : String, showAddButoon : Boolean,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
-            Button(
-                onClick = { onBackClicked(null) })
-            {
-                Icon(
-                    Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    modifier = Modifier.size(ButtonDefaults.IconSize))
-            }
             Button(
                 onClick = { onSaveClicked(0) })
             {
