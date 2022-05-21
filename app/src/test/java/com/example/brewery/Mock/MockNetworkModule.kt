@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class MockNetworkModule {
-    private val networkModule = NetworkModule()
+    private val networkModule = NetworkModule
 
     @Provides
     @Singleton

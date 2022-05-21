@@ -3,8 +3,11 @@ package com.example.brewery.DI.Mock
 import android.net.Uri
 import com.example.brewery.DI.NetworkConfig
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okio.BufferedSource
 import okio.Okio
+import okio.buffer
+import okio.source
 import java.io.ByteArrayInputStream
 
 class MockInterceptor : Interceptor {
@@ -13,8 +16,8 @@ class MockInterceptor : Interceptor {
     }
 
     private fun processRequest(request: Request): Response {
-        val uri = Uri.parse(request.url().toString())
-        val headers = request.headers()
+        val uri = Uri.parse(request.url.toString())
+        val headers = request.headers
         val path = uri.path
 
         return when {
@@ -26,9 +29,10 @@ class MockInterceptor : Interceptor {
 
     private fun createResponse(request: Request, headers: Headers, code: Int, content: String): Response {
         val responseBody = object : ResponseBody() {
-            override fun contentType(): MediaType? = MediaType.parse("application/json")
+            override fun contentType(): MediaType? = "application/json".toMediaTypeOrNull()
             override fun contentLength(): Long = content.toByteArray().size.toLong()
-            override fun source(): BufferedSource = Okio.buffer(Okio.source(ByteArrayInputStream(content.toByteArray())))
+            override fun source(): BufferedSource =
+                ByteArrayInputStream(content.toByteArray()).source().buffer()
         }
 
         return Response.Builder()

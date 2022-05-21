@@ -7,8 +7,10 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import javax.inject.Inject
 
+@Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner::class)
 class MainTest@Inject constructor(
     private val breweryService: BreweryService
