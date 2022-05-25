@@ -29,6 +29,7 @@ import com.example.brewery.Model.Brewery
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.firebase.analytics.FirebaseAnalytics
 import javax.inject.Singleton
 
 @Composable

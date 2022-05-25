@@ -8,6 +8,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.brewery.Model.Brewery
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -17,6 +21,7 @@ class MainViewModel @Inject constructor(
     mainRepository: MainRepository
 ): ViewModel(){
     @Inject lateinit var mainRepository: MainRepository;
+    private val firebaseAnalytics = Firebase.analytics;
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(false)
     val isLoading: State<Boolean> get() = _isLoading
@@ -54,10 +59,18 @@ class MainViewModel @Inject constructor(
         if(tab == 2){
             _showSaveButton.value = true;
         }
+        firebaseAnalytics.logEvent("Brewery_selected") {
+            param("Brewery_name", _selectedBrewery.value.name)
+            param("Brewery_country", _selectedBrewery.value.country?: "no_country")
+        }
     }
 
     fun delete(brewery: Brewery){
         mainRepository.delete(brewery);
+        firebaseAnalytics.logEvent("Delete_brewery") {
+            param("Brewery_name", _selectedBrewery.value.name)
+            param("Brewery_country", _selectedBrewery.value.country?: "no_country")
+        }
     }
 
     fun backClicked(tab: Int){
@@ -84,6 +97,10 @@ class MainViewModel @Inject constructor(
         _showAddButton.value = true;
         _showSaveButton.value = false;
         _selectedTab.value = tab;
+        firebaseAnalytics.logEvent("Brewery_saved") {
+            param("Brewery_name", _selectedBrewery.value.name)
+            param("Brewery_country", _selectedBrewery.value.country?: "no_country")
+        }
     }
 
     fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
